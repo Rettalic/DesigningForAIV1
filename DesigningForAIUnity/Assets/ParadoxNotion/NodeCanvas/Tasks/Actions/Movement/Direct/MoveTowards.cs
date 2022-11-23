@@ -17,15 +17,20 @@ namespace NodeCanvas.Tasks.Actions
         public bool waitActionFinish;
 
         protected override void OnUpdate() {
-            if ( ( agent.position - target.value.transform.position ).magnitude <= stopDistance.value ) {
+            if(( agent.position - target.value.transform.position ).magnitude <= stopDistance.value ) {
                 EndAction();
                 return;
             }
 
             agent.position = Vector3.MoveTowards(agent.position, target.value.transform.position, speed.value * Time.deltaTime);
+            var lookPos = target.value.transform.position - agent.transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, rotation, Time.deltaTime * speed.value);
             if ( !waitActionFinish ) {
                 EndAction();
             }
         }
+
     }
 }
