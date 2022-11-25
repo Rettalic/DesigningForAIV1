@@ -9,7 +9,7 @@ namespace NodeCanvas.Tasks.Actions
 
     [Category("Movement/Direct")]
     [Description("Moves the agent Around the Player")]
-    public class RotateAroundPlayer : ActionTask<Transform>
+    public class RotateAroundPlayer : ActionTask<NavMeshAgent>
     {
         [RequiredField]
         public BBParameter<GameObject> target;
